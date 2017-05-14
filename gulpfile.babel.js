@@ -4,6 +4,9 @@ import concat from 'gulp-concat'
 import del from 'del'
 import gzip from 'gulp-gzip'
 import tar from 'gulp-tar'
+import babel from 'gulp-babel'
+import uglify from 'gulp-uglify'
+import minify from 'gulp-minify'
 
 // *************
 // gulp.task() simples, con tareas pre-existentes y dependencias
@@ -50,6 +53,19 @@ gulp.task('txt:compress:tar', () => {
     .pipe(gzip())
     .pipe(gulp.dest('target'))
 })
+
+//
+// babel
+//
+
+gulp.task('transpile', () => {
+  gulp.src('src/**/*.js')
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(minify())
+    .pipe(gulp.dest('target'))
+})
+
 
 gulp.task('default', ['hola', 'chau'])
 
