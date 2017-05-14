@@ -2,6 +2,8 @@ import gulp from 'gulp'
 import gutil from 'gulp-util'
 import concat from 'gulp-concat'
 import del from 'del'
+import gzip from 'gulp-gzip'
+import tar from 'gulp-tar'
 
 // *************
 // gulp.task() simples, con tareas pre-existentes y dependencias
@@ -35,6 +37,19 @@ gulp.task('txt:copy-merged', () =>
     .pipe(concat('all.txt'))
     .pipe(gulp.dest('target'))
 )
+
+gulp.task('txt:compress:each', () => {
+  gulp.src('src/*.txt')
+    .pipe(gzip())
+    .pipe(gulp.dest('target'))
+})
+
+gulp.task('txt:compress:tar', () => {
+  gulp.src('src/*.txt')
+    .pipe(tar('txts.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest('target'))
+})
 
 gulp.task('default', ['hola', 'chau'])
 
