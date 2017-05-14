@@ -58,13 +58,19 @@ gulp.task('txt:compress:tar', () => {
 // babel
 //
 
-gulp.task('transpile', () => {
+gulp.task('transpile', () => 
   gulp.src('src/**/*.js')
     .pipe(babel())
     .pipe(uglify())
     .pipe(minify())
     .pipe(gulp.dest('target'))
-})
+)
+
+// watch
+
+gulp.task('transpile:watch', () =>
+  gulp.watch('src/**/*.js', ['transpile'])
+)
 
 
 gulp.task('default', ['hola', 'chau'])
