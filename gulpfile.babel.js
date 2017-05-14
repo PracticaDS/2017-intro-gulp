@@ -8,6 +8,8 @@ import babel from 'gulp-babel'
 import uglify from 'gulp-uglify'
 import minify from 'gulp-minify'
 import mocha from 'gulp-mocha'
+import gls from 'gulp-live-server'
+
 
 // *************
 // gulp.task() simples, con tareas pre-existentes y dependencias
@@ -83,7 +85,21 @@ gulp.task('test', () =>
     }))
 )
 
+// Server app execution
 
-gulp.task('default', ['hola', 'chau'])
+gulp.task('start:watch', ['transpile'], () => {
+  const server = gls.new('target/echoServer.js')
+  server.start()
+
+  // gulp.watch(['static/**/*.css', 'static/**/*.html'], function (file) {
+  //   server.notify.apply(server, [file]);
+  // })
+  gulp.watch('src/**/*.js', ['transpile', () => {
+    server.start()
+  }])
+})
+
+
+gulp.task('default', ['start:watch'])
 
 
