@@ -1,6 +1,6 @@
 import randomWords from  'random-words'
 
-function randomHello(preffix) {
+export default function randomHello(preffix) {
   return `${preffix} ${randomWords()} !!`
 }
 

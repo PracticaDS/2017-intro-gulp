@@ -7,6 +7,7 @@ import tar from 'gulp-tar'
 import babel from 'gulp-babel'
 import uglify from 'gulp-uglify'
 import minify from 'gulp-minify'
+import mocha from 'gulp-mocha'
 
 // *************
 // gulp.task() simples, con tareas pre-existentes y dependencias
@@ -70,6 +71,16 @@ gulp.task('transpile', () =>
 
 gulp.task('transpile:watch', () =>
   gulp.watch('src/**/*.js', ['transpile'])
+)
+
+// tests
+
+gulp.task('test', () =>
+	gulp.src('test/**/*_spec.js', { read: false })
+		.pipe(mocha({ 
+      compilers: 'js:babel-core/register',
+      require: ['babel-polyfill']
+    }))
 )
 
 
